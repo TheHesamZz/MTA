@@ -101,11 +101,6 @@ function playerLogin(username,password,checksave)
 						end
 					end
 
-					if tonumber(accountData["activated"]) == 0 then
-						triggerClientEvent(client,"set_warning_text",client,"Login","Account '".. username .."' is not activated.")
-						return false
-					end
-
 					--Validation is done, fetching some more details
 					triggerClientEvent(client,"set_authen_text",client,"Login","Account authenticated!")
 
@@ -170,18 +165,7 @@ function playerLogin(username,password,checksave)
 					setElementDataEx(client, "punishment:points", tonumber(accountData['punishpoints']), true)
 					setElementDataEx(client, "punishment:date", accountData['punishdate'], true)
 				
-					--Admins serial whitelist
-					if not exports.serialwhitelist:check(client) then
-						triggerClientEvent(client,"set_warning_text",client,"Login","You're not allowed to connect to server from that PC, check UCP.")
-						--REMOVE STAFF PERMISSIONS / MAXIME
-						setElementDataEx(client, "admin_level", 0, true)
-						setElementDataEx(client, "supporter_level", 0, true)
-						setElementDataEx(client, "vct_level", 0, true)
-						setElementDataEx(client, "mapper_level", 0, true)
-						setElementDataEx(client, "scripter_level", 0, true)
-						setElementDataEx(client, "fmt_level", 0, true)
-						return false
-					end
+				
 				
 					exports['report']:reportLazyFix(client)
 				
